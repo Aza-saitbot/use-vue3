@@ -1,12 +1,18 @@
 <template>
   <div class="app">
     <h1>Список апартаментов</h1>
-    <my-button style="margin: 15px 0" @click="showDialog">Создать апартамент</my-button>
+    <div class="app__header">
+      <my-button @click="showDialog">Создать апартамент</my-button>
+      <my-select
+          :options="sortOptions"
+          v-model="selectedSort"
+      />
+    </div>
     <my-dialog v-model:show="visibleDialog">
       <apartment-form @create="createApartment"/>
     </my-dialog>
     <apartment-list
-        :apartments="apartments"
+        :apartments="sortedApartments"
         @remove="removeApartment"
         v-if="!isApartmentsLoading"
     />
@@ -28,7 +34,12 @@ export default {
     return {
       apartments: [],
       visibleDialog: false,
-      isApartmentsLoading: false
+      isApartmentsLoading: false,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'title', name: 'По названию'},
+        {value: 'body', name: 'По содержанию'}
+      ]
     }
   },
   methods: {
@@ -47,15 +58,26 @@ export default {
         this.isApartmentsLoading = true
         const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
         this.apartments = response.data
-      }catch (e) {
+      } catch (e) {
         alert('Ошибка при загрузке списка апартаментов!')
-      }finally {
+      } finally {
         this.isApartmentsLoading = false
       }
     }
   },
   mounted() {
     this.fetchApartments()
+  },
+  computed: {
+    sortedApartments() {
+      return [...this.apartments].sort((apart1, apart2) => {
+        return apart1[this.selectedSort]?.localeCompare(apart2[this.selectedSort])
+      })
+    }
+  }
+  ,
+  watch: {
+
   }
 }
 </script>
@@ -69,6 +91,12 @@ export default {
 
 .app {
   padding: 20px;
+}
+
+.app__header {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 </style>

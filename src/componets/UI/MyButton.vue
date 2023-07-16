@@ -1,7 +1,7 @@
 <template>
-<button class="btn">
-<slot></slot>
-</button>
+  <button class="btn">
+    <slot></slot>
+  </button>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-.btn{
+.btn {
   display: flex;
   padding: 10px 15px;
   background: none;

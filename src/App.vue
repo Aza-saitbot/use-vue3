@@ -1,7 +1,14 @@
 <template>
   <div class="app">
-    <apartment-form @create="createApartment"/>
-    <apartment-list :apartments="apartments"/>
+    <h1>Список апартаментов</h1>
+    <my-button style="margin: 15px 0" @click="showDialog">Создать апартамент</my-button>
+    <my-dialog v-model:show="visibleDialog">
+      <apartment-form @create="createApartment"/>
+    </my-dialog>
+    <apartment-list
+        :apartments="apartments"
+        @remove="removeApartment"
+    />
   </div>
 </template>
 
@@ -22,11 +29,19 @@ export default {
         {id: 3, title: 'Квартира 1+3', description: 'ОРЕ 3'},
         {id: 4, title: 'Квартира 1+4', description: 'ОРЕ 4'},
       ],
+      visibleDialog: false
     }
   },
   methods: {
     createApartment(apartment) {
       this.apartments.push(apartment)
+      this.visibleDialog = false
+    },
+    removeApartment(apartment) {
+      this.apartments = this.apartments.filter(item => item.id !== apartment.id)
+    },
+    showDialog() {
+      this.visibleDialog = true
     }
   }
 }

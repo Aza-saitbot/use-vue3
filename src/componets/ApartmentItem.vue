@@ -1,9 +1,10 @@
 <template>
-  <div class="apartment" >
+  <div class="apartment">
     <div>
-      <div><strong>Название:</strong> {{apartment.title}}</div>
-      <div><strong>Описание:</strong> {{apartment.description}}</div>
-    </div><my-button style="align-self: flex-end">удалить</my-button>
+      <div><strong>Название:</strong> {{ apartment.title }}</div>
+      <div><strong>Описание:</strong> {{ apartment.description }}</div>
+    </div>
+    <my-button style="align-self: flex-end" @click="$emit('remove',apartment)">удалить</my-button>
   </div>
 </template>
 
@@ -21,7 +22,7 @@ export default {
 </script>
 
 <style scoped>
-.apartment{
+.apartment {
   display: flex;
   justify-content: space-between;
   align-items: center;

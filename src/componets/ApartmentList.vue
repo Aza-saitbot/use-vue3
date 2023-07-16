@@ -1,15 +1,14 @@
 <template>
   <div>
     <h3>Список апартаментов</h3>
-    <div class="apartment" v-for="apartment in apartments">
-      <div><strong>Название:</strong> {{apartment.title}}</div>
-      <div><strong>Описание:</strong> {{apartment.description}}</div>
-    </div>
+    <apartment-item :apartment="apartment" v-for="apartment in apartments" />
   </div>
 </template>
 
 <script>
+import ApartmentItem from "./ApartmentItem.vue";
 export default {
+  components: {ApartmentItem},
   props: {
     apartments:{
       type: Array,

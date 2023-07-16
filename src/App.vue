@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <apartment-form @create="createApartment" />
+  <div class="app">
+    <apartment-form @create="createApartment"/>
     <apartment-list :apartments="apartments"/>
   </div>
 </template>
@@ -17,17 +17,15 @@ export default {
   data() {
     return {
       apartments: [
-        { id: 1,title:'Квартира 1+1',description: 'ОРЕ 1'},
-        { id: 2,title:'Квартира 1+2',description: 'ОРЕ 2'},
-        { id: 3,title:'Квартира 1+3',description: 'ОРЕ 3'},
-        { id: 4,title:'Квартира 1+4',description: 'ОРЕ 4'},
+        {id: 1, title: 'Квартира 1+1', description: 'ОРЕ 1'},
+        {id: 2, title: 'Квартира 1+2', description: 'ОРЕ 2'},
+        {id: 3, title: 'Квартира 1+3', description: 'ОРЕ 3'},
+        {id: 4, title: 'Квартира 1+4', description: 'ОРЕ 4'},
       ],
     }
   },
   methods: {
-
     createApartment(apartment) {
-      console.log('apartment',apartment)
       this.apartments.push(apartment)
     }
   }
@@ -35,11 +33,14 @@ export default {
 </script>
 
 <style>
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+.app {
+  padding: 20px;
+}
 
 </style>

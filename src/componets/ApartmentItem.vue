@@ -1,13 +1,16 @@
 <template>
   <div class="apartment" >
-    <div><strong>Название:</strong> {{apartment.title}}</div>
-    <div><strong>Описание:</strong> {{apartment.description}}</div>
+    <div>
+      <div><strong>Название:</strong> {{apartment.title}}</div>
+      <div><strong>Описание:</strong> {{apartment.description}}</div>
+    </div><my-button style="align-self: flex-end">удалить</my-button>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: "ApartmentItem",
+
   props: {
     apartment: {
       type: Object,
@@ -19,7 +22,9 @@ export default {
 
 <style scoped>
 .apartment{
-  display: grid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 15px;
   border: 2px solid teal;
 }

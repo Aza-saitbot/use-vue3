@@ -2,7 +2,7 @@
   <div class="apartment">
     <div>
       <div><strong>Название:</strong> {{ apartment.title }}</div>
-      <div><strong>Описание:</strong> {{ apartment.description }}</div>
+      <div><strong>Описание:</strong> {{ apartment.body }}</div>
     </div>
     <my-button style="align-self: flex-end" @click="$emit('remove',apartment)">удалить</my-button>
   </div>

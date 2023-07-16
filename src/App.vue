@@ -8,13 +8,16 @@
     <apartment-list
         :apartments="apartments"
         @remove="removeApartment"
+        v-if="!isApartmentsLoading"
     />
+    <div v-else>...идет загрузка</div>
   </div>
 </template>
 
 <script>
 import ApartmentList from './componets/ApartmentList.vue'
 import ApartmentForm from './componets/ApartmentForm.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -23,13 +26,9 @@ export default {
   },
   data() {
     return {
-      apartments: [
-        {id: 1, title: 'Квартира 1+1', description: 'ОРЕ 1'},
-        {id: 2, title: 'Квартира 1+2', description: 'ОРЕ 2'},
-        {id: 3, title: 'Квартира 1+3', description: 'ОРЕ 3'},
-        {id: 4, title: 'Квартира 1+4', description: 'ОРЕ 4'},
-      ],
-      visibleDialog: false
+      apartments: [],
+      visibleDialog: false,
+      isApartmentsLoading: false
     }
   },
   methods: {
@@ -42,7 +41,21 @@ export default {
     },
     showDialog() {
       this.visibleDialog = true
+    },
+    async fetchApartments() {
+      try {
+        this.isApartmentsLoading = true
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        this.apartments = response.data
+      }catch (e) {
+        alert('Ошибка при загрузке списка апартаментов!')
+      }finally {
+        this.isApartmentsLoading = false
+      }
     }
+  },
+  mounted() {
+    this.fetchApartments()
   }
 }
 </script>
